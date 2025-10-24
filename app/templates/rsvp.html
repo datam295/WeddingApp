@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}RSVP – Henna & Kabir{% endblock %}
+
+{% block content %}
+  <nav>
+    <a href="{{ url_for('main.home') }}">Home</a>
+    <a href="{{ url_for('main.rsvp') }}">RSVP</a>
+    <a href="{{ url_for('main.wedding_info') }}">Wedding Info</a>
+    <a href="{{ url_for('main.reception_info') }}">Reception Info</a>
+  </nav>
+
+  <h1 class="save-date">RSVP</h1>
+
+  {% if submitted %}
+    <div class="thank-you">
+      <h2>Thank you, {{ name }}!</h2>
+      <p>Your RSVP has been received 💌</p>
+    </div>
+  {% else %}
+    <form method="POST" action="{{ url_for('main.rsvp') }}" class="rsvp-form">
+
+      <!-- New Invite Number Field -->
+      <label for="invite_number">Invite Number</label>
+      <input type="text" name="invite_number" id="invite_number" placeholder="Enter your invite number" required>
+
+      <label for="name">Your Name</label>
+      <input type="text" name="name" id="name" required>
+
+      <label for="attendees">Who will be attending?</label>
+      <input type="text" name="attendees" id="attendees" placeholder="e.g. Henna & Kabir" required>
+
+      <label for="guests">Number of Guests</label>
+      <input type="number" name="guests" id="guests" required min="1">
+
+      <label for="attending">Will you be attending?</label>
+      <select name="attending" id="attending" required>
+        <option value="">Select...</option>
+        <option value="yes">Yes, I’ll be there!</option>
+        <option value="no">Sorry, can’t make it</option>
+      </select>
+
+      <button type="submit">Submit RSVP</button>
+    </form>
+  {% endif %}
+{% endblock %}

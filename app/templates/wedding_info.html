@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Wedding Info – Henna & Kabir{% endblock %}
+
+{% block content %}
+  <nav>
+    <a href="{{ url_for('main.home') }}">Home</a>
+    <a href="{{ url_for('main.rsvp') }}">RSVP</a>
+    <a href="{{ url_for('main.wedding_info') }}">Wedding Info</a>
+    <a href="{{ url_for('main.reception_info') }}">Reception Info</a>
+  </nav>
+
+  <h1>Wedding Ceremony Details</h1>
+  <p class="details">📍 <strong>Gurdwara Sahib, Southall</strong></p>
+  <p class="details">🗓️ <strong>29 August 2026</strong></p>
+  <p class="details">🕗 Arrival: 10:00 AM | Ceremony: 11:00 AM</p>
+{% endblock %}

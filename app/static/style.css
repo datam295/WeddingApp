@@ -1,0 +1,100 @@
+/* Shared styling for all pages */
+
+h1, h2 {
+  font-family: 'Great Vibes', cursive;
+  color: #fceaea;
+}
+
+.save-date {
+  font-size: 2.5rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+.details {
+  margin-bottom: 2rem;
+}
+
+.rsvp-button, button {
+  background-color: #fceaea;
+  color: #4a0b0b;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.rsvp-button:hover,
+button:hover {
+  background-color: #fff0f0;
+}
+
+nav {
+  margin-bottom: 2rem;
+}
+
+nav a {
+  color: #fceaea;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* RSVP Form Styling */
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* space between each element */
+  width: 100%;
+  max-width: 400px;
+  margin: 2rem auto;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.rsvp-form label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  align-self: flex-start;
+}
+
+.rsvp-form input,
+.rsvp-form select {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  border: none;
+  text-align: center;
+  background-color: #fff;
+  color: #4a0b0b;
+  font-size: 1rem;
+}
+
+.rsvp-form button {
+  margin-top: 1rem;
+  background-color: #fceaea;
+  color: #4a0b0b;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.rsvp-form button:hover {
+  background-color: #fff0f0;
+}
+

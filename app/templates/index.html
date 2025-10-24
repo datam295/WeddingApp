@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Henna & Kabir’s Wedding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #fceaea;
+      background-color: #4a0b0b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 👇 This creates your faded watermark background */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("{{ url_for('static', filename='watermark.jpg') }}") no-repeat center;
+      background-size: contain;
+      opacity: 0.08; /* Adjust fade level */
+      z-index: 0;
+    }
+
+    /* Make sure all content sits above the watermark */
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding-top: 4rem;
+    }
+
+    h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      margin-top: 0.5rem;
+    }
+
+    .save-date {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    .details {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .rsvp-button {
+      display: inline-block;
+      background-color: #fceaea;
+      color: #4a0b0b;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 2rem;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .rsvp-button:hover {
+      background-color: #fff0f0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    <img src="{{ url_for('static', filename='save-the-date.jpg') }}" alt="Save the Date" style="width:200px; margin-bottom:1rem;">
+    <h2>Henna & Kabir</h2>
+    <p class="subtitle">are getting married</p>
+    <h1 class="save-date">Save the Date</h1>
+    <p class="details">Anand Karaj – 29.08.26 &nbsp;&nbsp; | &nbsp;&nbsp; Reception – 30.08.26</p>
+    <a class="rsvp-button" href="/rsvp">RSVP Now</a>
+  </div>
+</body>
+</html>

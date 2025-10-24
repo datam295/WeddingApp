@@ -1,0 +1,8 @@
+
+Flask==2.3.5
+SQLAlchemy
+Flask-Migrate
+Flask-WTF
+Flask-Login
+gunicorn
+google-auth
