@@ -95,3 +95,34 @@ h2 {
         max-width: 300px;
     }
 }
+
+.background-container {
+  background-image: url('/static/images/chesterton-hotel.jpg'); /* adjust path if needed */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  padding: 60px 20px;
+  min-height: 100vh;
+}
+
+.background-container::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(255, 255, 255, 0.7); /* white overlay for fade effect */
+  z-index: 0;
+}
+
+.info-box {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}

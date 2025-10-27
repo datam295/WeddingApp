@@ -3,15 +3,20 @@
 {% block title %}Reception Info – Henna & Kabir{% endblock %}
 
 {% block content %}
-  <nav>
-    <a href="{{ url_for('main.home') }}">Home</a>
-    <a href="{{ url_for('main.rsvp') }}">RSVP</a>
-    <a href="{{ url_for('main.wedding_info') }}">Wedding Info</a>
-    <a href="{{ url_for('main.reception_info') }}">Reception Info</a>
-  </nav>
+  <div class="background-container">
+    <nav>
+      <a href="{{ url_for('main.home') }}">Home</a>
+      <a href="{{ url_for('main.rsvp') }}">RSVP</a>
+      <a href="{{ url_for('main.wedding_info') }}">Wedding Info</a>
+      <a href="{{ url_for('main.reception_info') }}">Reception Info</a>
+    </nav>
 
-  <h1>Reception Celebration</h1>
-  <p class="details">📍 <strong>The Chesterton Hotel, Bicester</strong></p>
-  <p class="details">🗓️ <strong>30 August 2026</strong></p>
-  <p class="details">🕗 Arrival: 5:00 PM | Dinner: 7:30 PM | Dancing till late 💃</p>
+    <div class="info-box">
+      <h1>Reception Celebration</h1>
+      <p class="details">📍 <strong>The Chesterton Hotel, Bicester</strong></p>
+      <p class="details">🗓️ <strong>30 August 2026</strong></p>
+      <p class="details">🕗 Arrival: 5:00 PM | Dinner: 7:30 PM | Dancing till late 💃</p>
+    </div>
+  </div>
 {% endblock %}
+
