@@ -10,21 +10,30 @@ body {
     align-items: center;
     justify-content: flex-start;
     position: relative;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .content {
     position: relative;
     z-index: 1;
     text-align: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 h2 {
     font-family: 'Great Vibes', cursive;
     font-size: 3em;
+    margin: 15px 0;
 }
 
 .subtitle {
     font-size: 1.5em;
+    line-height: 1.4;
+    margin: 10px 0;
 }
 
 .save-date {
@@ -35,17 +44,54 @@ h2 {
 .details {
     font-size: 1.2em;
     margin-bottom: 20px;
+    line-height: 1.6;
 }
 
 .rsvp-button {
     background-color: #fceaea;
     color: #4a0b0b;
-    padding: 10px 20px;
+    padding: 15px 30px;
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
+    display: inline-block;
+    margin: 10px 0;
+    font-size: 1.1em;
 }
 
 .rsvp-button:hover {
     background-color: #e0b3b3;
+}
+
+/* Media queries for portrait mode on phones */
+@media screen and (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .content {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 2.5em;
+    }
+
+    .subtitle {
+        font-size: 1.2em;
+    }
+
+    .save-date {
+        font-size: 2.8em;
+    }
+
+    .details {
+        font-size: 1em;
+    }
+
+    .rsvp-button {
+        padding: 12px 24px;
+        width: 80%;
+        max-width: 300px;
+    }
 }
