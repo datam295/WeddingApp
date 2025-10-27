@@ -1,4 +1,3 @@
-Sure, here's the contents for the file `/flask-app/flask-app/app/models.py`:
 
 from flask_sqlalchemy import SQLAlchemy
 

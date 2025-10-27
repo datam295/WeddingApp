@@ -96,11 +96,8 @@ h2 {
     }
 }
 
-background-image: url('/static/images/chesterton-hotel.jpg');
-
-
 .background-container {
-  background-image: url('/static/images/chesterton-hotel.jpg'); /* adjust path if needed */
+  background-image: url('/static/images/chesterton-hotel.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
