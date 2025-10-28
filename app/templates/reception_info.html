@@ -10,13 +10,116 @@
       <a href="{{ url_for('main.wedding_info') }}">Wedding Info</a>
       <a href="{{ url_for('main.reception_info') }}">Reception Info</a>
     </nav>
+  <section class="window window-1 full-width-half-height-window" style="position:relative; overflow:hidden; margin-bottom: 20px;">
+      <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:url('{{ url_for('static', filename='images/chesterton-hotel.jpg') }}') center center/cover no-repeat; opacity:0.2; z-index:0;"></div>
+      <div style="position:relative; z-index:1;">
+        <h2>Reception Celebration</h2>
+        <p class="details">📍 <strong>The Chesterton Hotel, Bicester</strong></p>
+        <p class="details">🗓️ <strong>30 August 2026</strong></p>
+      </div>
+    </section>
+    <div class="windows">
+      <section class="window window-2">
+        <h2>Schedule</h2>
+        <ul class="details">
+          <h3>Provisional itineray</h3>
+          <li>5:00 PM — Arrival & Welcome Drinks with Canapes</li>
+          <li>6:30 PM — Cake Cutting & First Dance</li>
+          <li>7:00 PM — Starters</li>
+          <li>7:30 PM — Some Dancing</li>
+          <li>8:00 PM — Dinner & Speeches</li>
+          <li>8:45 PM — Dancing till late</li>
+        </ul>
+      </section>
 
-    <div class="info-box">
-      <h1>Reception Celebration</h1>
-      <p class="details">📍 <strong>The Chesterton Hotel, Bicester</strong></p>
-      <p class="details">🗓️ <strong>30 August 2026</strong></p>
-      <p class="details">🕗 Arrival: 5:00 PM | Dinner: 7:30 PM | Dancing till late 💃</p>
+      <section class="window window-3">
+        <h2>Guests & Logistics</h2>
+        <p class="details">Dress code: Black Tie / Cocktail</p>
+        <p class="details">Parking: Available on site</p>
+
+      </section>
+    </div>
+    <div class="windows extra-windows">
+      <section class="window window-4">
+        <h2>Local Hotels</h2>
+        <ul class="details">
+          <li><strong>Bicester Hotel Golf & Spa</strong> (2 min drive)</li>
+          <li><strong>Premier Inn Bicester</strong> (5 min drive)</li>
+          <li><strong>Holiday Inn Express Bicester</strong> (7 min drive)</li>
+          <li><strong>Travelodge Bicester</strong> (8 min drive)</li>
+        </ul>
+      </section>
+      <section class="window window-5">
+        <h2>Location Map</h2>
+        <div class="map-container" style="width:100%;height:220px;max-width:100%;border-radius:8px;overflow:hidden;">
+          <iframe
+            src="https://www.google.com/maps?q=The+Chesterton+Hotel+Bicester&ll=51.8997,-1.1782&z=10&output=embed"
+            width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div style="font-size:0.9em;color:#fceaea;margin-top:4px;">Map centered on The Chesterton Hotel (zoomed to show M40)</div>
+        </div>
+      </section>
     </div>
   </div>
+  
+  <style>
+    html, body {
+      height: 100%;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+    .background-container {
+      min-height: 100vh;
+      height: auto;
+      overflow-y: auto;
+    }
+    /* Local styles for three-window layout (mobile-first) */
+    .full-width-half-height-window {
+      width: 100vw;
+      max-width: none;
+      min-width: 0;
+      height: 50vh;
+      min-height: 220px;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .windows {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      margin-top: 0;
+      box-sizing: border-box;
+    }
+    .window {
+      background: rgba(255,255,255,0.03);
+      padding: 18px;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      text-align: left;
+      min-height: 120px;
+    }
+    .window h2 { font-family: 'Great Vibes', cursive; font-size: 1.8em; margin: 0 0 8px 0; color: #fceaea; }
+    .window .details { color: #fceaea; line-height: 1.5; margin: 6px 0; }
+    .window ul.details { padding-left: 1.2em; margin: 6px 0; }
+    .extra-windows {
+      margin-top: 20px;
+    }
+    /* Larger screens: show windows side-by-side */
+    @media (min-width: 800px) {
+      .windows { flex-direction: row; }
+      .window { flex: 1; min-width: 0; }
+    }
+    /* Portrait phones adjustments */
+    @media screen and (max-width: 480px) {
+      .window { padding: 14px; border-radius: 6px; }
+      .window h2 { font-size: 1.6em; }
+      .rsvp-button { width: 100%; text-align: center; display: block; margin-top: 10px; }
+  .full-width-half-height-window { width: 100vw; min-width: 0; max-width: 100vw; height: 40vh; min-height: 160px; border-radius: 0; }
+    }
+  </style>
 {% endblock %}
 
