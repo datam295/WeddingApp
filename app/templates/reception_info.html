@@ -13,9 +13,9 @@
   <section class="window window-1 full-width-half-height-window" style="position:relative; overflow:hidden; margin-bottom: 20px;">
       <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:url('{{ url_for('static', filename='images/chesterton-hotel.jpg') }}') center center/cover no-repeat; opacity:0.2; z-index:0;"></div>
       <div style="position:relative; z-index:1;">
-        <h2>Reception Celebration</h2>
-        <p class="details">📍 <strong>The Chesterton Hotel, Bicester</strong></p>
-        <p class="details">🗓️ <strong>30 August 2026</strong></p>
+        <h1>Reception Celebration</h1>
+        <p class="details venue-highlight">📍 <strong>The Chesterton Hotel<br>Alchester Road, Chesterton<br>Bicester, Oxfordshire<br>OX26 1UE</strong></p>
+        <p class="details date-highlight">🗓️ <strong>30 August 2026</strong></p>
       </div>
     </section>
     <div class="windows">
@@ -29,14 +29,30 @@
           <li>7:30 PM — Some Dancing</li>
           <li>8:00 PM — Dinner & Speeches</li>
           <li>8:45 PM — Dancing till late</li>
+          <li>11:00 PM — Carriages</li>
         </ul>
       </section>
 
       <section class="window window-3">
         <h2>Guests & Logistics</h2>
-        <p class="details">Dress code: Black Tie / Cocktail</p>
-        <p class="details">Parking: Available on site</p>
-
+        <table class="details-table">
+          <tr>
+            <td><strong>Dress Code</strong></td>
+            <td>Black Tie / Cocktail</td>
+          </tr>
+          <tr>
+            <td><strong>Parking</strong></td>
+            <td>Available on site</td>
+          </tr>
+          <tr>
+            <td><strong>Children</strong></td>
+            <td>Welcome</td>
+          </tr>
+          <tr>
+            <td><strong>Accessibility</strong></td>
+            <td>Fully accessible venue</td>
+          </tr>
+        </table>
       </section>
     </div>
     <div class="windows extra-windows">
@@ -104,7 +120,29 @@
     }
     .window h2 { font-family: 'Great Vibes', cursive; font-size: 1.8em; margin: 0 0 8px 0; color: #fceaea; }
     .window .details { color: #fceaea; line-height: 1.5; margin: 6px 0; }
+    .window .details.date-highlight { font-size: 1.8em; font-weight: 700; margin: 12px 0; }
+    .window .details.date-highlight strong { font-weight: 800; }
+    .window .details.venue-highlight { font-size: 2em; font-weight: 700; margin: 15px 0; line-height: 1.4; }
+    .window .details.venue-highlight strong { font-weight: 800; }
     .window ul.details { padding-left: 1.2em; margin: 6px 0; }
+    .details-table {
+      width: 100%;
+      border-spacing: 0;
+      border-collapse: separate;
+      margin: 10px 0;
+    }
+    .details-table td {
+      padding: 8px 12px;
+      color: #fceaea;
+      line-height: 1.5;
+      border-bottom: 1px solid rgba(252, 234, 234, 0.1);
+    }
+    .details-table tr:last-child td {
+      border-bottom: none;
+    }
+    .details-table td:first-child {
+      width: 140px;
+    }
     .extra-windows {
       margin-top: 20px;
     }

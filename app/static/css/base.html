@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Henna & Kabir’s Wedding{% endblock %}</title>
+
+  <!-- Load Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Load shared stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <style>
+    /* Inline styles that depend on Flask (like watermark path) */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #fceaea;
+      background-color: #4a0b0b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 👇 watermark background */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("{{ url_for('static', filename='watermark.jpg') }}") no-repeat center;
+      background-size: contain;
+      opacity: 0.08; /* adjust fade level */
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding-top: 4rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>
