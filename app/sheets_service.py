@@ -1,39 +1,38 @@
+
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
-import os.path
+import os
 import json
+from dotenv import load_dotenv
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+
+# Load environment variables from .env if present
+load_dotenv()
 
 def get_google_sheets_service():
     try:
         creds = None
-        # Look for service account credentials first
-        if os.path.exists('app/service-account.json'):
+        cred_path = os.getenv('GOOGLE_CREDENTIALS', 'service-account.json')
+        if os.path.exists(cred_path):
             creds = Credentials.from_service_account_file(
-                'service-account.json', 
+                cred_path,
                 scopes=SCOPES
             )
         else:
-            print("Error: service-account.json not found")
+            print(f"Error: credentials file not found at {cred_path}")
             return None
-            
         service = build('sheets', 'v4', credentials=creds)
         return service
     except Exception as e:
         print(f"Error setting up service: {str(e)}")
         return None
 
-    try:
-        service = build('sheets', 'v4', credentials=creds)
-        return service
-    except Exception as e:
-        print(f"Error building service: {e}")
-        return None
 
 class GuestList:
-    def __init__(self, spreadsheet_id):
-        self.spreadsheet_id = spreadsheet_id
+    def __init__(self, spreadsheet_id=None):
+        # Allow spreadsheet_id to be set via env var if not provided
+        self.spreadsheet_id = spreadsheet_id or os.getenv('WEDDING_SHEET_ID')
         self.service = get_google_sheets_service()
         self.range_name = 'Sheet1!A:F'  # Adjust based on your sheet structure
 
