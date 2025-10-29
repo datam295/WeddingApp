@@ -14,8 +14,12 @@
 
   {% if submitted %}
     <div class="thank-you">
-      <h2>Thank you, {{ name }}!</h2>
-      <p>Your RSVP has been received 💌</p>
+      {% if thank_you_message %}
+        <h2>{{ thank_you_message }}</h2>
+      {% else %}
+        <h2>Thank you, {{ name }}!</h2>
+        <p>Your RSVP has been received 💌</p>
+      {% endif %}
     </div>
   {% else %}
     <form method="POST" action="{{ url_for('main.rsvp') }}" class="rsvp-form">
@@ -30,8 +34,11 @@
       <label for="attendees">Who will be attending?</label>
       <input type="text" name="attendees" id="attendees" placeholder="e.g. Henna & Kabir" required>
 
+
       <label for="guests">Number of Guests</label>
-      <input type="number" name="guests" id="guests" required min="1">
+      <input type="number" name="guests" id="guests" required min="1"
+        {% if max_guests %} max="{{ max_guests }}" {% endif %}
+      >
 
       <label for="attending">Will you be attending?</label>
       <select name="attending" id="attending" required>
@@ -41,6 +48,112 @@
       </select>
 
       <button type="submit">Submit RSVP</button>
+
+      {% if error and max_guests %}
+        <div id="guestLimitModal" class="modal" style="display:block;">
+          <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 style="font-family: 'Great Vibes', cursive; color: #fceaea;">Guest Limit Exceeded</h2>
+            <p style="color: #fceaea;">
+              Apologies, due to space constraints, we have only allocated <span id="maxGuests">{{ max_guests }}</span> spaces.<br>
+              Please re-submit your RSVP.
+            </p>
+          </div>
+        </div>
+        <script>
+        function closeModal() {
+          document.getElementById('guestLimitModal').style.display = 'none';
+        }
+        window.onclick = function(event) {
+          var modal = document.getElementById('guestLimitModal');
+          if (event.target == modal) { modal.style.display = 'none'; }
+        }
+        </script>
+        <style>
+          .modal {
+            display: block;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0; width: 100vw; height: 100vh;
+            background: rgba(30, 20, 40, 0.85);
+            overflow-y: auto;
+          }
+          .modal-content {
+            background: #2d223a;
+            color: #fceaea;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2em 2em 1.5em 2em;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+            width: 90vw;
+            max-width: 400px;
+            font-family: inherit;
+            text-align: center;
+          }
+          .close {
+            color: #fceaea;
+            position: absolute;
+            top: 0.7em; right: 1em;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+          }
+          .close:hover { color: #ffb3b3; }
+        </style>
+      {% endif %}
+
+      {% if error and not max_guests %}
+        <div id="inviteNotFoundModal" class="modal" style="display:block;">
+          <div class="modal-content">
+            <span class="close" onclick="closeInviteModal()">&times;</span>
+            <h2 style="font-family: 'Great Vibes', cursive; color: #fceaea;">Invite Number Not Found</h2>
+            <p style="color: #fceaea;">
+              Sorry, invite number <span id="inviteNumber">{{ request.form.invite_number }}</span> was not found.<br>
+              Please check the invite number entered and try again.
+            </p>
+          </div>
+        </div>
+        <script>
+        function closeInviteModal() {
+          document.getElementById('inviteNotFoundModal').style.display = 'none';
+        }
+        window.onclick = function(event) {
+          var modal1 = document.getElementById('guestLimitModal');
+          var modal2 = document.getElementById('inviteNotFoundModal');
+          if (modal1 && event.target == modal1) { modal1.style.display = 'none'; }
+          if (modal2 && event.target == modal2) { modal2.style.display = 'none'; }
+        }
+        </script>
+        <style>
+          #inviteNotFoundModal.modal {
+            display: block;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0; width: 100vw; height: 100vh;
+            background: rgba(30, 20, 40, 0.85);
+            overflow-y: auto;
+          }
+          #inviteNotFoundModal .modal-content {
+            background: #2d223a;
+            color: #fceaea;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2em 2em 1.5em 2em;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+            width: 90vw;
+            max-width: 400px;
+            font-family: inherit;
+            text-align: center;
+          }
+        </style>
+      {% endif %}
     </form>
   {% endif %}
 {% endblock %}
