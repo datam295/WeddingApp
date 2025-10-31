@@ -28,8 +28,45 @@
       <label for="invite_number">Invite Number</label>
       <input type="text" name="invite_number" id="invite_number" placeholder="Enter your invite number" required>
 
+      <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const inviteInput = document.getElementById('invite_number');
+        const nameInput = document.getElementById('name');
+        const guestsInput = document.getElementById('guests');
+        const seatsAllocatedInput = document.getElementById('seats_allocated');
+        inviteInput.addEventListener('blur', function() {
+          const inviteNumber = inviteInput.value.trim();
+          if (inviteNumber) {
+            fetch(`/validate-invite/${inviteNumber}`)
+              .then(response => response.json())
+              .then(data => {
+                if (data.valid) {
+                  if (data.name) nameInput.value = data.name;
+                  if (data.max_guests) {
+                    guestsInput.max = data.max_guests;
+                    guestsInput.placeholder = `Max: ${data.max_guests}`;
+                    seatsAllocatedInput.value = data.max_guests;
+                  } else {
+                    seatsAllocatedInput.value = '';
+                  }
+                } else {
+                  nameInput.value = '';
+                  guestsInput.value = '';
+                  guestsInput.removeAttribute('max');
+                  guestsInput.placeholder = '';
+                  seatsAllocatedInput.value = '';
+                }
+              });
+          }
+        });
+      });
+      </script>
+
       <label for="name">Your Name</label>
-      <input type="text" name="name" id="name" required>
+  <input type="text" name="name" id="name" readonly style="background:#eee; color:#333;">
+
+      <label for="seats_allocated">Seats Allocated</label>
+      <input type="number" name="seats_allocated" id="seats_allocated" readonly style="background:#eee; color:#333;">
 
       <label for="attendees">Who will be attending?</label>
       <input type="text" name="attendees" id="attendees" placeholder="e.g. Henna & Kabir" required>

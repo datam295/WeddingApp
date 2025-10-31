@@ -43,15 +43,17 @@ class GuestList:
                 spreadsheetId=self.spreadsheet_id,
                 range=self.range_name
             ).execute()
-            
             rows = result.get('values', [])
-            for row in rows:
-                if row[0] == invite_number:  # Assuming invite number is in first column
+            if not rows or len(rows) < 2:
+                return {'valid': False}
+            header = rows[0]
+            for idx, row in enumerate(rows[1:], start=2):  # skip header, row index is 1-based
+                if len(row) > 0 and str(row[0]).strip() == str(invite_number).strip():
                     return {
                         'valid': True,
-                        'max_guests': int(row[1]),  # Assuming max guests is in second column
-                        'name': row[2],  # Assuming name is in third column
-                        'row_index': rows.index(row) + 1
+                        'max_guests': int(row[2]) if len(row) > 2 and row[2] else 0,  # Seats Allocated
+                        'name': row[1] if len(row) > 1 else '',  # Guest Name
+                        'row_index': idx
                     }
             return {'valid': False}
         except Exception as e:
