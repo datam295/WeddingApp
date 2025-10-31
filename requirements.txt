@@ -6,3 +6,6 @@ Flask-WTF
 Flask-Login
 gunicorn
 google-auth
+google-api-python-client
+google-auth-oauthlib
+google-auth-httplib2
