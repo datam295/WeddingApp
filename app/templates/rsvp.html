@@ -34,12 +34,13 @@
         const nameInput = document.getElementById('name');
         const guestsInput = document.getElementById('guests');
         const seatsAllocatedInput = document.getElementById('seats_allocated');
-        inviteInput.addEventListener('blur', function() {
+        inviteInput.addEventListener('input', function() {
           const inviteNumber = inviteInput.value.trim();
           if (inviteNumber) {
             fetch(`/validate-invite/${inviteNumber}`)
               .then(response => response.json())
               .then(data => {
+                console.log('Invite lookup response:', data);
                 if (data.valid) {
                   if (data.name) nameInput.value = data.name;
                   if (data.max_guests) {
@@ -56,7 +57,16 @@
                   guestsInput.placeholder = '';
                   seatsAllocatedInput.value = '';
                 }
+              })
+              .catch(err => {
+                console.error('Error fetching invite:', err);
               });
+          } else {
+            nameInput.value = '';
+            guestsInput.value = '';
+            guestsInput.removeAttribute('max');
+            guestsInput.placeholder = '';
+            seatsAllocatedInput.value = '';
           }
         });
       });
