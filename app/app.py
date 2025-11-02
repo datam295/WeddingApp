@@ -1,5 +1,10 @@
 from flask import Flask
 from .routes import main  # or however you set up your Blueprint
+import os
+
+if os.getenv("GOOGLE_CREDENTIALS_JSON"):
+    with open("service-account.json", "w") as f:
+        f.write(os.environ["GOOGLE_CREDENTIALS_JSON"])
 
 def create_app():
 
