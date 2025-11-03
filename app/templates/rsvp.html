@@ -28,12 +28,24 @@
       <label for="invite_number">Invite Number</label>
       <input type="text" name="invite_number" id="invite_number" placeholder="Enter your invite number" required>
 
+      <div id="inviteNotFoundModal" class="modal" style="display:none;">
+        <div class="modal-content">
+          <span class="close" onclick="document.getElementById('inviteNotFoundModal').style.display='none';">&times;</span>
+          <h2 style="font-family: 'Great Vibes', cursive; color: #fceaea;">Invite Number Not Found</h2>
+          <p style="color: #fceaea;">
+            Sorry, the invite number you entered was not found.<br>
+            Please check your invitation and try again.
+          </p>
+        </div>
+      </div>
+
       <script>
       document.addEventListener('DOMContentLoaded', function() {
         const inviteInput = document.getElementById('invite_number');
         const nameInput = document.getElementById('name');
         const guestsInput = document.getElementById('guests');
         const seatsAllocatedInput = document.getElementById('seats_allocated');
+        const inviteNotFoundModal = document.getElementById('inviteNotFoundModal');
         inviteInput.addEventListener('input', function() {
           const inviteNumber = inviteInput.value.trim();
           if (inviteNumber) {
@@ -50,12 +62,14 @@
                   } else {
                     seatsAllocatedInput.value = '';
                   }
+                  if (inviteNotFoundModal) inviteNotFoundModal.style.display = 'none';
                 } else {
                   nameInput.value = '';
                   guestsInput.value = '';
                   guestsInput.removeAttribute('max');
                   guestsInput.placeholder = '';
                   seatsAllocatedInput.value = '';
+                  if (inviteNotFoundModal) inviteNotFoundModal.style.display = 'block';
                 }
               })
               .catch(err => {
@@ -67,6 +81,7 @@
             guestsInput.removeAttribute('max');
             guestsInput.placeholder = '';
             seatsAllocatedInput.value = '';
+            if (inviteNotFoundModal) inviteNotFoundModal.style.display = 'none';
           }
         });
       });
