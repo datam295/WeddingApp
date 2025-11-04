@@ -39,7 +39,7 @@ def rsvp():
 
         # Update the spreadsheet
         if guest_list.update_rsvp(validation['row_index'], attending, guests, attendees):
-            thank_you_message = f"Thank you, {name}, for your RSVP! We look forward to seeing you at the wedding."
+            thank_you_message = f"Thank you, {name}, for your RSVP! We look forward to seeing you at the wedding Reception."
             return render_template("rsvp.html", submitted=True, name=name, thank_you_message=thank_you_message)
         else:
             flash("There was an error processing your RSVP. Please try again.", "error")
