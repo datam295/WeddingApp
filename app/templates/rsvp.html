@@ -26,7 +26,7 @@
 
       <!-- New Invite Number Field -->
       <label for="invite_number">Invite Number</label>
-      <input type="text" name="invite_number" id="invite_number" placeholder="Enter your invite number" required>
+      <input type="text" name="invite_number" id="invite_number" placeholder="Enter your invite number" required value="{{ invite_number|default('') }}">
 
       <div id="inviteNotFoundModal" class="modal" style="display:none;">
         <div class="modal-content">
@@ -88,23 +88,21 @@
       </script>
 
       <label for="name">Your Name</label>
-  <input type="text" name="name" id="name" readonly style="background:#eee; color:#333;">
+  <input type="text" name="name" id="name" readonly style="background:#eee; color:#333;" value="{{ name|default('') }}">
 
       <label for="seats_allocated">Seats Allocated</label>
-      <input type="number" name="seats_allocated" id="seats_allocated" readonly style="background:#eee; color:#333;">
+      <input type="number" name="seats_allocated" id="seats_allocated" readonly style="background:#eee; color:#333;" value="{{ max_guests|default('') }}">
 
       <label for="attendees">Who will be attending?</label>
-      <input type="text" name="attendees" id="attendees" placeholder="e.g. Henna & Kabir" required>
+      <input type="text" name="attendees" id="attendees" placeholder="e.g. Henna & Kabir" required value="{{ attendees|default('') }}">
 
 
       <label for="guests">Number of Guests</label>
-      <input type="number" name="guests" id="guests" required min="1"
-        {% if max_guests %} max="{{ max_guests }}" {% endif %}
-      >
+      <input type="number" name="guests" id="guests" required min="1" {% if max_guests %} max="{{ max_guests }}" {% endif %} value="{{ max_guests|default('') }}">
 
       <label for="attending">Will you be attending?</label>
       <select name="attending" id="attending" required>
-        <option value="">Select...</option>
+        <option value="" selected>Select...</option>
         <option value="yes">Yes, I’ll be there!</option>
         <option value="no">Sorry, can’t make it</option>
       </select>

@@ -1,4 +1,3 @@
-
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 import os
@@ -53,7 +52,9 @@ class GuestList:
                         'valid': True,
                         'max_guests': int(row[2]) if len(row) > 2 and row[2] else 0,  # Seats Allocated
                         'name': row[1] if len(row) > 1 else '',  # Guest Name
-                        'row_index': idx
+                        'row_index': idx,
+                        'attendees': row[5] if len(row) > 5 else '',  # Attendee Names
+                        'attending': row[3].lower() if len(row) > 3 and row[3] else ''  # RSVP Status
                     }
             return {'valid': False}
         except Exception as e:

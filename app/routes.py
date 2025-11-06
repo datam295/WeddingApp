@@ -115,3 +115,21 @@ def admin_accepted():
     RSVP_STATUS_IDX = 3
     accepted = [row for row in data if len(row) > RSVP_STATUS_IDX and row[RSVP_STATUS_IDX].strip().lower() == 'yes']
     return render_template('admin_list.html', header=header, rows=accepted, title='Accepted RSVPs')
+
+@main.route('/invite-number/<invite_number>', methods=["GET"])
+def invite_number_rsvp(invite_number):
+    validation = guest_list.validate_invite(invite_number)
+    if not validation['valid']:
+        flash("Invalid invite number. Please check and try again.", "error")
+        return render_template("rsvp.html", submitted=False, error=True)
+    # Pre-populate the RSVP form with invite data
+    return render_template(
+        "rsvp.html",
+        submitted=False,
+        invite_number=invite_number,
+        name=validation.get('name', ''),
+        max_guests=validation.get('max_guests', ''),
+        attendees=validation.get('attendees', ''),
+        attending=validation.get('attending', ''),
+        error=False
+    )
