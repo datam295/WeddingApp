@@ -98,7 +98,13 @@
 
 
       <label for="guests">Number of Guests</label>
-      <input type="number" name="guests" id="guests" required min="1" {% if max_guests %} max="{{ max_guests }}" {% endif %} value="{{ max_guests|default('') }}">
+
+      <input type="text" name="guests" id="guests" required
+        {% if max_guests %} placeholder="Max: {{ max_guests }}" value="Max: {{ max_guests }}" {% endif %}
+        onfocus="if(this.value === 'Max: {{ max_guests }}'){this.value='';this.type='number';}"
+        oninput="this.type='number';"
+        min="1" {% if max_guests %} max="{{ max_guests }}" {% endif %}
+      >
 
       <label for="attending">Will you be attending?</label>
       <select name="attending" id="attending" required>
