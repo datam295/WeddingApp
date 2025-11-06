@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
+import qrcode
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, current_app
 from .sheets_service import GuestList
 import os
 
 main = Blueprint('main', __name__)
+
 
 # Initialize GuestList with your Google Sheet ID
 SPREADSHEET_ID = os.getenv('WEDDING_SHEET_ID', 'your-spreadsheet-id-here')
@@ -152,3 +154,32 @@ def print_cards():
             if invite_number:
                 invites.append({'invite_number': invite_number, 'name': name})
     return render_template('rsvp_cards.html', invites=invites)
+
+# ...existing code...
+# Route to generate QR codes for all invites
+@main.route('/admin/generate-qrcodes')
+def generate_qrcodes():
+    RSVP_URL_ROOT = "https://kabirandhennaswedding.co.uk/invite-number/"
+    QR_DIR = os.path.join(current_app.root_path, 'static', 'qrcodes')
+    os.makedirs(QR_DIR, exist_ok=True)
+    guest_list = GuestList()
+    result = guest_list.service.spreadsheets().values().get(
+        spreadsheetId=guest_list.spreadsheet_id,
+        range=guest_list.range_name
+    ).execute()
+    rows = result.get('values', [])
+    if not rows or len(rows) < 2:
+        return "No guest data found."
+    data = rows[1:]
+    count = 0
+    for row in data:
+        if len(row) > 0:
+            invite_number = str(row[0]).strip()
+            if invite_number:
+                url = f"{RSVP_URL_ROOT}{invite_number}"
+                img = qrcode.make(url)
+                img_path = os.path.join(QR_DIR, f"invite_{invite_number}.png")
+                img.save(img_path)
+                count += 1
+    return f"Generated {count} QR codes in static/qrcodes."
+

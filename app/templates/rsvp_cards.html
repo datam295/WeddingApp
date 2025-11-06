@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}RSVP Cards – Print{% endblock %}
+{% block content %}
+  <h1>RSVP Cards for Printing</h1>
+  <div class="cards-container">
+    {% for invite in invites %}
+      <div class="rsvp-card">
+        <h2>You're Invited!</h2>
+        <p><strong>Henna & Kabir's Wedding</strong></p>
+        <p>Invite Number: <span class="invite-number">{{ invite.invite_number }}</span></p>
+        <p>Name: <span class="invite-name">{{ invite.name }}</span></p>
+        <img src="{{ url_for('static', filename='qrcodes/invite_' ~ invite.invite_number ~ '.png') }}" alt="RSVP QR Code" class="qr-code">
+        <p>Scan the QR code to RSVP online</p>
+        <p class="card-footer">Date: 30 August 2026<br>Venue: The Chesterton Hotel, Bicester</p>
+      </div>
+    {% endfor %}
+  </div>
+  <style>
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2em;
+      justify-content: flex-start;
+    }
+    .rsvp-card {
+      width: 350px;
+      border-radius: 16px;
+      background: #fff8f0;
+      color: #4a0b0b;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      padding: 2em;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      margin: 1em 0;
+      page-break-inside: avoid;
+    }
+    .rsvp-card .qr-code {
+      width: 120px;
+      height: 120px;
+      margin: 1em 0;
+    }
+    .rsvp-card .invite-number {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #b85c38;
+    }
+    .rsvp-card .invite-name {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: #7a4a2f;
+      display: block;
+      margin-bottom: 0.5em;
+    }
+    .rsvp-card .card-footer {
+      margin-top: 1.5em;
+      font-size: 0.95em;
+      color: #7a4a2f;
+    }
+    @media print {
+      .cards-container { flex-wrap: wrap; }
+      .rsvp-card { page-break-inside: avoid; }
+    }
+  </style>
+{% endblock %}
