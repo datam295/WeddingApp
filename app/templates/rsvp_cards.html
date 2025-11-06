@@ -6,8 +6,7 @@
     {% for invite in invites %}
       <div class="rsvp-card">
         <h2>You're Invited!</h2>
-        <p><strong>Henna & Kabir's Wedding</strong></p>
-        <p>Invite Number: <span class="invite-number">{{ invite.invite_number }}</span></p>
+  <p><strong>Henna & Kabir's Wedding Reception</strong></p>
         <p>Name: <span class="invite-name">{{ invite.name }}</span></p>
         <img src="{{ url_for('static', filename='qrcodes/invite_' ~ invite.invite_number ~ '.png') }}" alt="RSVP QR Code" class="qr-code">
         <p>Scan the QR code to RSVP online</p>
