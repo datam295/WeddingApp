@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  {% if rows and header %}
+    <table class="details-table">
+      <thead>
+        <tr>
+          {% for col in header %}
+            <th>{{ col }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+          <tr>
+            {% for cell in row %}
+              <td>{{ cell }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No entries found.</p>
+  {% endif %}
+  <a href="{{ url_for('main.admin') }}" class="admin-link">Back to Admin Dashboard</a>
+  <style>
+    .details-table { width: 100%; border-collapse: collapse; margin: 1em 0; }
+    .details-table th, .details-table td { border: 1px solid #fceaea; padding: 8px; color: #fceaea; }
+    .details-table th { background: #2d223a; }
+    .admin-link { color: #fceaea; font-weight: bold; text-decoration: underline; display: inline-block; margin-top: 1em; }
+  </style>
+{% endblock %}

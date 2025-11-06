@@ -56,3 +56,62 @@ def wedding_info():
 @main.route('/reception-info')
 def reception_info():
     return render_template('reception_info.html')
+
+@main.route('/admin')
+def admin():
+    # Fetch all guest data from the sheet
+    result = guest_list.service.spreadsheets().values().get(
+        spreadsheetId=guest_list.spreadsheet_id,
+        range=guest_list.range_name
+    ).execute()
+    rows = result.get('values', [])
+    header = rows[0] if rows else []
+    data = rows[1:] if len(rows) > 1 else []
+
+    # Indices for relevant columns
+    RSVP_STATUS_IDX = 3  # D column: RSVP Status
+    GUEST_COUNT_IDX = 4  # E column: Actual Guest Count
+
+    total_rsvps = 0
+    pending_rsvps = 0
+    total_guests_confirmed = 0
+    for row in data:
+        status = row[RSVP_STATUS_IDX] if len(row) > RSVP_STATUS_IDX else ''
+        guest_count = int(row[GUEST_COUNT_IDX]) if len(row) > GUEST_COUNT_IDX and row[GUEST_COUNT_IDX].isdigit() else 0
+        if status.strip().lower() == 'yes':
+            total_rsvps += 1
+            total_guests_confirmed += guest_count
+        elif status.strip() == '' or status.strip().lower() == 'pending':
+            pending_rsvps += 1
+
+    return render_template('admin.html',
+        total_rsvps=total_rsvps,
+        pending_rsvps=pending_rsvps,
+        total_guests_confirmed=total_guests_confirmed
+    )
+
+@main.route('/admin/pending')
+def admin_pending():
+    result = guest_list.service.spreadsheets().values().get(
+        spreadsheetId=guest_list.spreadsheet_id,
+        range=guest_list.range_name
+    ).execute()
+    rows = result.get('values', [])
+    header = rows[0] if rows else []
+    data = rows[1:] if len(rows) > 1 else []
+    RSVP_STATUS_IDX = 3
+    pending = [row for row in data if len(row) > RSVP_STATUS_IDX and (row[RSVP_STATUS_IDX].strip() == '' or row[RSVP_STATUS_IDX].strip().lower() == 'pending')]
+    return render_template('admin_list.html', header=header, rows=pending, title='Pending RSVPs')
+
+@main.route('/admin/accepted')
+def admin_accepted():
+    result = guest_list.service.spreadsheets().values().get(
+        spreadsheetId=guest_list.spreadsheet_id,
+        range=guest_list.range_name
+    ).execute()
+    rows = result.get('values', [])
+    header = rows[0] if rows else []
+    data = rows[1:] if len(rows) > 1 else []
+    RSVP_STATUS_IDX = 3
+    accepted = [row for row in data if len(row) > RSVP_STATUS_IDX and row[RSVP_STATUS_IDX].strip().lower() == 'yes']
+    return render_template('admin_list.html', header=header, rows=accepted, title='Accepted RSVPs')

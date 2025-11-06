@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard – RSVPs{% endblock %}
+
+{% block content %}
+  <h1>Admin Dashboard</h1>
+  <div class="admin-stats">
+    <p><strong>Accepted RSVPs:</strong> {{ total_rsvps }}</p>
+    <p><strong>Pending RSVPs:</strong> {{ pending_rsvps }}</p>
+    <p><strong>Total Guests Confirmed:</strong> {{ total_guests_confirmed }}</p>
+  </div>
+  <div class="admin-links">
+    <a href="{{ url_for('main.admin_pending') }}" class="admin-link">View Pending RSVPs</a> |
+    <a href="{{ url_for('main.admin_accepted') }}" class="admin-link">View Accepted RSVPs</a>
+  </div>
+  <style>
+    .admin-stats { margin-bottom: 2em; }
+    .admin-links { margin-top: 1em; }
+    .admin-link { color: #fceaea; font-weight: bold; text-decoration: underline; margin: 0 10px; }
+  </style>
+{% endblock %}
